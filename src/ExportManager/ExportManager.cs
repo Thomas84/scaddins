@@ -516,8 +516,11 @@ namespace SCaddins.ExportManager
         public void LoadSettings()
         {
             this.GhostscriptBinDir = SCaddins.ExportManager.Settings1.Default.GSBinDirectory;
-            this.PdfPrinterName = SCaddins.ExportManager.Settings1.Default.AdobePrinterDriver; 
-            this.PrinterNameA3 = SCaddins.ExportManager.Settings1.Default.A3PrinterDriver; 
+            this.log.AddMessage("GhostscriptBinDir loaded: " + this.GhostscriptBinDir);
+            this.PdfPrinterName = SCaddins.ExportManager.Settings1.Default.AdobePrinterDriver;
+            this.log.AddMessage("this.PdfPrinterName loaded: " + this.PdfPrinterName);
+            this.PrinterNameA3 = SCaddins.ExportManager.Settings1.Default.A3PrinterDriver;
+            this.log.AddMessage("this.PrinterNameA3: " + this.PrinterNameA3);
             this.PrinterNameLargeFormat = SCaddins.ExportManager.Settings1.Default.LargeFormatPrinterDriver;
             this.PostscriptPrinterName = SCaddins.ExportManager.Settings1.Default.PSPrinterDriver; 
             this.GhostscriptLibDir = SCaddins.ExportManager.Settings1.Default.GSLibDirectory; 
@@ -653,6 +656,7 @@ namespace SCaddins.ExportManager
                 t.Commit();
             } catch (Autodesk.Revit.Exceptions.ArgumentException e) {
                 TaskDialog.Show("Revit", "cannot Hide Title: " + e.Message);
+                System.Diagnostics.Debug.WriteLine("Cannot Hide Title: " + e.Message);
                 t.RollBack();
             }
         }

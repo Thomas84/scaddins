@@ -19,6 +19,7 @@ namespace SCaddins.ExportManager
 {
     using System;
     using System.Windows.Forms;
+    using System.Linq;
     using Autodesk.Revit.DB;
 
     public partial class OptionsDialog : System.Windows.Forms.Form
@@ -44,6 +45,14 @@ namespace SCaddins.ExportManager
             if (result == System.Windows.Forms.DialogResult.OK) {
                 textBox.Text = dialog.comboBoxPrinter.SelectedItem.ToString();
             }
+        }
+
+        public static string GetStringFromStringColection(System.Collections.Specialized.StringCollection collection) {
+            string s = string.Empty;
+            foreach (string line in collection) {
+                s += line + System.Environment.NewLine;
+            }
+            return s;
         }
 
         private void LoadValues()
@@ -280,6 +289,11 @@ namespace SCaddins.ExportManager
             if (result == DialogResult.OK) {
                 textBoxExportDir.Text = this.folderBrowserDialog1.SelectedPath;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e) {
+            PaperSizeDialog dialog = new PaperSizeDialog(GetStringFromStringColection(Settings1.Default.PaperSizes));
+            dialog.ShowDialog();
         }
     }
 }

@@ -142,6 +142,8 @@ namespace SCaddins.ExportManager
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -156,7 +158,7 @@ namespace SCaddins.ExportManager
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 462);
+            this.button2.Location = new System.Drawing.Point(12, 512);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(113, 23);
             this.button2.TabIndex = 6;
@@ -167,7 +169,7 @@ namespace SCaddins.ExportManager
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(343, 462);
+            this.button1.Location = new System.Drawing.Point(351, 512);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -182,7 +184,7 @@ namespace SCaddins.ExportManager
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(406, 444);
+            this.tabControl1.Size = new System.Drawing.Size(414, 494);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage2
@@ -194,7 +196,7 @@ namespace SCaddins.ExportManager
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(398, 418);
+            this.tabPage2.Size = new System.Drawing.Size(406, 468);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "General";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -438,14 +440,14 @@ namespace SCaddins.ExportManager
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(398, 418);
+            this.tabPage3.Size = new System.Drawing.Size(406, 468);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Advanced";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // checkBoxShowExportLog
             // 
-            this.checkBoxShowExportLog.Location = new System.Drawing.Point(12, 359);
+            this.checkBoxShowExportLog.Location = new System.Drawing.Point(12, 409);
             this.checkBoxShowExportLog.Name = "checkBoxShowExportLog";
             this.checkBoxShowExportLog.Size = new System.Drawing.Size(380, 24);
             this.checkBoxShowExportLog.TabIndex = 10;
@@ -454,9 +456,9 @@ namespace SCaddins.ExportManager
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 389);
+            this.button5.Location = new System.Drawing.Point(12, 439);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(370, 23);
+            this.button5.Size = new System.Drawing.Size(380, 23);
             this.button5.TabIndex = 9;
             this.button5.Text = "Check for Updates";
             this.button5.UseVisualStyleBackColor = true;
@@ -469,9 +471,9 @@ namespace SCaddins.ExportManager
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.buttonEditConfig);
             this.groupBox3.Controls.Add(this.buttonCreateConfig);
-            this.groupBox3.Location = new System.Drawing.Point(6, 20);
+            this.groupBox3.Location = new System.Drawing.Point(6, 19);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(386, 82);
+            this.groupBox3.Size = new System.Drawing.Size(394, 83);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Project Configuratation";
@@ -533,9 +535,9 @@ namespace SCaddins.ExportManager
             this.groupBox2.Controls.Add(this.textBoxGSLib);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.textBoxGSBin);
-            this.groupBox2.Location = new System.Drawing.Point(6, 257);
+            this.groupBox2.Location = new System.Drawing.Point(6, 310);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(386, 93);
+            this.groupBox2.Size = new System.Drawing.Size(394, 93);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ghostscript Options";
@@ -592,6 +594,8 @@ namespace SCaddins.ExportManager
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.btnSelectLargeFormatPrinter);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.textBoxLargeFormatPrinter);
@@ -606,7 +610,7 @@ namespace SCaddins.ExportManager
             this.groupBox1.Controls.Add(this.textBoxAdobeDriver);
             this.groupBox1.Location = new System.Drawing.Point(6, 108);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(386, 143);
+            this.groupBox1.Size = new System.Drawing.Size(394, 196);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Printer Options";
@@ -719,18 +723,36 @@ namespace SCaddins.ExportManager
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button3.Location = new System.Drawing.Point(261, 462);
+            this.button3.Location = new System.Drawing.Point(273, 512);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 9;
             this.button3.Text = "Cancel";
             this.button3.UseVisualStyleBackColor = true;
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(152, 129);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(219, 23);
+            this.button4.TabIndex = 17;
+            this.button4.Text = "Define Paper Sizes";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(3, 129);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(140, 20);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "Available paper sizes";
+            // 
             // OptionsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 497);
+            this.ClientSize = new System.Drawing.Size(438, 547);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button2);
@@ -782,5 +804,7 @@ namespace SCaddins.ExportManager
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBoxNorthPointVisibilty;
         private System.Windows.Forms.TextBox textBoxScalebarScale;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label13;
     }
 }

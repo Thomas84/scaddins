@@ -1,4 +1,4 @@
-// (C) Copyright 2012-2015 by Andrew Nicholas
+// (C) Copyright 2012-2017 by Andrew Nicholas
 //
 // This file is part of SCaddins.
 //
@@ -19,43 +19,67 @@ namespace SCaddins.ExportManager
 {
     using System;
     using System.Globalization;
+    using System.Text.RegularExpressions;
     using Autodesk.Revit.DB;
     using Autodesk.Revit.UI;
 
     public static class PrintSettings
     {  
+        /// <summary>
+        /// Return the sheet name by matching the Title Block size to defined print settings.
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <returns> The Sheet Name (A0,A1...etc)</returns>
         public static string GetSheetSizeAsString(ExportSheet sheet)
         {
-            double[] p = { 1189, 841, 594, 420, 297, 210, 297, 420, 594, 841, 1189 };
-            string[] s = { "A0", "A1", "A2", "A3", "A4", "A4P", "A3P", "A2P", "A1P", "A0P" };
-
-            for (int i = 0; i < s.Length; i++) {
-                if (CheckSheetSize(sheet.Width, sheet.Height, p[i], p[i + 1])) {
-                    return s[i];
-                }
+            var sheetSizeList = SCaddins.ExportManager.Settings1.Default.PaperSizes;
+            foreach (string s in sheetSizeList) {
+                string pattern = @"(^.*)\((.*)x(.*)([a-z][a-z])\)";
+                var match = Regex.Match(s, pattern);
+                var size = match.Groups[1].Value;
+                var width = match.Groups[2].Value;
+                var height = match.Groups[3].Value;
+                var units = match.Groups[4].Value;
+                System.Diagnostics.Debug.WriteLine("Size {0:G}: Width {1:G}: Height {2:G}: Units {3:G}", size, width, height, units);
+                double w = 0;
+                double h = 0;
+                if (double.TryParse(width, out w) && double.TryParse(height, out h)) {
+                    if (units == "in") {
+                        // TODO need some better techniques than this....
+                        w = w * 25.4;
+                        h = h * 25.4;
+                    }
+                    // landscape first
+                    if (CheckSheetSize(sheet.Width, sheet.Height, h, w)){
+                        return size.Trim();
+                    }
+                    // portrait is appended with "-Portrait"
+                    if (CheckSheetSize(sheet.Width, sheet.Height, w, h)) {
+                        return size.Trim() + "-Portrait";
+                    }
+                }              
             }
-
-            if (CheckSheetSize(sheet.Width, sheet.Height, 1000, 707)) {
-                return "B1";
-            }
-
             return Math.Round(sheet.Width).ToString(CultureInfo.InvariantCulture) + "x" +
-                Math.Round(sheet.Height).ToString(CultureInfo.InvariantCulture);
+               Math.Round(sheet.Height).ToString(CultureInfo.InvariantCulture);
         }
 
-        public static bool CreatePrintSetting(Document doc, string isoSheetSize)
-        {
+        public static bool CreatePrintSetting(Document doc, string sheetSize) {
             PrintManager pm = doc.PrintManager;
             bool success = false;
+            var niceName = sheetSize;
+            if (sheetSize.Contains("-")) {
+                niceName = sheetSize.Substring(0, sheetSize.IndexOf("-"));
+            }
             foreach (PaperSize paperSize in pm.PaperSizes) {
-                if (paperSize.Name.Substring(0, 2) == isoSheetSize.Substring(0, 2)) {
+                // FIXME check for portrait mode here!
+                if (paperSize.Name == niceName) {
                     var t = new Transaction(doc, "Apply print settings");
                     t.Start();
                     var ips = pm.PrintSetup.CurrentPrintSetting;
                     try {
                         ips.PrintParameters.PaperSize = paperSize;
                         ips.PrintParameters.HideCropBoundaries = true;
-                        if (isoSheetSize.Length > 2 && !isoSheetSize.Contains("FIT")) {
+                        if (sheetSize.Contains("Portrait") && !sheetSize.Contains("FIT")) {
                             ips.PrintParameters.PageOrientation =
                             PageOrientationType.Portrait;
                         } else {
@@ -66,7 +90,7 @@ namespace SCaddins.ExportManager
                         ips.PrintParameters.HideScopeBoxes = true;
                         ips.PrintParameters.HideReforWorkPlanes = true;
                         ips.PrintParameters.HideUnreferencedViewTags = true;
-                        if (isoSheetSize.Contains("FIT")) {
+                        if (sheetSize.Contains("FIT")) {
                             ips.PrintParameters.ZoomType = ZoomType.FitToPage;
                             ips.PrintParameters.PaperPlacement = PaperPlacementType.Margins;
                             ips.PrintParameters.MarginType = MarginType.UserDefined;
@@ -81,14 +105,14 @@ namespace SCaddins.ExportManager
                             ips.PrintParameters.UserDefinedMarginY = 0;
                         }
 
-                        pm.PrintSetup.SaveAs("SCX-" + isoSheetSize);
+                        pm.PrintSetup.SaveAs("SCX-" + sheetSize);
                         t.Commit();
                         success = true;
                     } catch (InvalidOperationException ex) {
                         System.Diagnostics.Debug.Print(ex.Message);
                         TaskDialog.Show(
                             "SCexport",
-                            "Unable to create print setting: " + "SCX-" + isoSheetSize);
+                            "Unable to create print setting: " + "SCX-" + sheetSize);
                         t.RollBack();
                     }
                 }

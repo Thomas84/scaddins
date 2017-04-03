@@ -12,7 +12,7 @@ namespace SCaddins.ExportManager {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ICSharpCode.SettingsEditor.SettingsCodeGeneratorTool", "5.1.0.5216")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     public sealed partial class Settings1 : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings1 defaultInstance = ((Settings1)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings1())));
@@ -161,6 +161,49 @@ namespace SCaddins.ExportManager {
             }
             set {
                 this["NorthPointVisibilityParameter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>A0 (841x1189mm)</string>
+  <string>A1 (594x841mm)</string>
+  <string>A2 (420x594mm)</string>
+  <string>A3 (297x420mm)</string>
+  <string>ISO B1 (707x1000mm)</string>
+  <string>ISO B2 (500x707mm)</string>
+  <string>ISO B3 (353x500mm)</string>
+  <string>ISO B4 (250x353mm)</string>
+  <string>B1 (728x1030mm)</string>
+  <string>B2 (515x728mm)</string>
+  <string>B3 (364x515mm)</string>
+  <string>B4 ( 257x364mm)</string>
+  <string>ANSI A (8.5x11in)</string>
+  <string>ANSI B (11x17in)</string>
+  <string>ANSI C (17x22in)</string>
+  <string>ANSI D (22x34in)</string>
+  <string>ANSI E (34x44)</string>
+  <string>Arch A (9x12in)</string>
+  <string>Arch B (12x18in)</string>
+  <string>Arch C (18x24in)</string>
+  <string>Arch D (24x36in)</string>
+  <string>Arch E (36x48in)</string>
+  <string>Arch E1 (30x42in)</string>
+  <string>Arch E2 (26x38in)</string>
+  <string>Arch E3 (27x39in)</string>
+  <string>Arch30 B (10.5x15in)</string>
+  <string>Arch30 C (15x21in)</string>
+  <string>Arch30 D (21x30in)</string>
+  <string>Arch30 E (30x42in)</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection PaperSizes {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["PaperSizes"]));
+            }
+            set {
+                this["PaperSizes"] = value;
             }
         }
         

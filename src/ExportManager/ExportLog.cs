@@ -44,6 +44,7 @@
             this.TotalExports = 0;
             this.errorLog = new Collection<ExportLogItem>();
             this.warningLog = new Collection<ExportLogItem>();
+            this.AddMessage("Export Log Created");
         }
                 
         public int Warnings
@@ -135,6 +136,7 @@
         
         private void AddLogItem(string msg)
         {
+            System.Diagnostics.Debug.WriteLine(msg);
             this.fullLog.Append(msg).AppendLine();
         }
     }

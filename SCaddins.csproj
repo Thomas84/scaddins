@@ -178,6 +178,12 @@
       <DependentUpon>UpgradeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Common\ConsoleUtils.cs" />
+    <Compile Include="src\ExportManager\PaperSizeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\ExportManager\PaperSizeDialog.Designer.cs">
+      <DependentUpon>PaperSizeDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\ParameterUtilities\EditTextParameters.cs" />
     <Compile Include="src\ParameterUtilities\TextCaseEnums.cs" />
     <Compile Include="src\ParameterUtilities\ChangeCaseInfoDialog.cs">
@@ -192,7 +198,9 @@
     <Compile Include="src\Constants.cs" />
     <Compile Include="src\RevisionUtilities\RevisionItem.cs" />
     <Compile Include="src\RoomConvertor\RoomFilterEnums.cs" />
-    <Compile Include="src\RoomConvertor\RoomToSheetWizard.cs" />
+    <Compile Include="src\RoomConvertor\RoomToSheetWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\RoomConvertor\RoomToSheetWizard.Designer.cs">
       <DependentUpon>RoomToSheetWizard.cs</DependentUpon>
     </Compile>
@@ -219,20 +227,28 @@
     </Compile>
     <Compile Include="src\SolarUtilities\AngleOfSun.cs" />
     <Compile Include="src\SolarUtilities\SolarViews.cs" />
-    <Compile Include="src\SolarUtilities\SolarViewsForm.cs" />
+    <Compile Include="src\SolarUtilities\SolarViewsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\SolarUtilities\SolarViewsForm.Designer.cs" />
     <Compile Include="src\ViewUtilities\CameraFromViewCommand.cs" />
-    <Compile Include="src\RoomConvertor\RoomConvertorForm.cs" />
+    <Compile Include="src\RoomConvertor\RoomConvertorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\RoomConvertor\RoomConvertorForm.Designer.cs">
       <DependentUpon>RoomConvertorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="src\RoomConvertor\RoomFilter.cs" />
-    <Compile Include="src\RoomConvertor\RoomFilterDialog.cs" />
+    <Compile Include="src\RoomConvertor\RoomFilterDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\RoomConvertor\RoomFilterDialog.Designer.cs">
       <DependentUpon>RoomFilterDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\RoomConvertor\RoomFilterItem.cs" />
-    <Compile Include="src\RoomConvertor\RoomInfoDilaog.cs" />
+    <Compile Include="src\RoomConvertor\RoomInfoDilaog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="src\RoomConvertor\RoomInfoDilaog.Designer.cs">
       <DependentUpon>RoomInfoDilaog.cs</DependentUpon>
     </Compile>
@@ -262,7 +278,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\ExportManager\MainForm.Designer.cs" />
-    <Compile Include="src\ExportManager\MenuButton.cs" />
+    <Compile Include="src\ExportManager\MenuButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="src\ExportManager\NextSheet.cs" />
     <Compile Include="src\ExportManager\OpenSheet.cs" />
     <Compile Include="src\ExportManager\OpenSheetDialog.cs">
@@ -300,6 +318,7 @@
     <Compile Include="src\ExportManager\Settings1.Designer.cs">
       <DependentUpon>Settings1.settings</DependentUpon>
       <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="src\ExportManager\Sheet.cs" />
     <Compile Include="src\ExportManager\SegmentedSheetName.cs" />
@@ -386,6 +405,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\Common\UpgradeForm.resx">
       <DependentUpon>UpgradeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\ExportManager\PaperSizeDialog.resx">
+      <DependentUpon>PaperSizeDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\ParameterUtilities\TectCaseInfoDialog.resx" />
     <EmbeddedResource Include="src\ParameterUtilities\TextCaseMainForm.resx">
@@ -502,14 +524,7 @@
     </None>
     <None Include="src\WindowManager\WindowManager.ahk" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="etc" />
-    <Folder Include="share" />
-    <Folder Include="src\Assets" />
-    <Folder Include="src\RoomConvertor" />
-    <Folder Include="src\SolarUtilities" />
-    <Folder Include="src\WindowManager" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="src\ghostscriptsharp\GhostScriptSharp\GhostscriptSharp.csproj">
       <Project>{56605627-e6fa-4f47-9440-fb877cea5c84}</Project>
