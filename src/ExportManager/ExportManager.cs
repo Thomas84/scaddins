@@ -41,6 +41,7 @@ namespace SCaddins.ExportManager
         private Collection<SegmentedSheetName> fileNameTypes;
         private Collection<ViewSheetSetCombo> allViewSheetSets;
         private Dictionary<string, PostExportHookCommand> postExportHooks;
+        private Dictionary<string, PaperSize> paperSizes;
         private SegmentedSheetName fileNameScheme;
         private SortableBindingListCollection<ExportSheet> allSheets;
         private bool forceDate;
@@ -350,7 +351,7 @@ namespace SCaddins.ExportManager
             System.Windows.Forms.ToolStripItem info,
             System.Windows.Forms.Control strip)
         {
-            PrintManager pm = doc.PrintManager;
+            SCexportPrintManager pm = doc.PrintManager;
             TaskDialogResult tdr = ShowPrintWarning();
             
             DateTime startTime = DateTime.Now;
@@ -375,15 +376,15 @@ namespace SCaddins.ExportManager
 
                     switch (scale) {
                     case 3:
-                        printSetttingsValid |= PrintSettings.PrintToDevice(doc, "A3-FIT", pm, printerName, this.log);
+                        printSetttingsValid |= PrintManagerPrintToDevice(doc, "A3-FIT", pm, printerName, this.log);
                         break;
                     case 2:
-                        printSetttingsValid |= PrintSettings.PrintToDevice(doc, "A2-FIT", pm, printerName, this.log);
+                        printSetttingsValid |= PPrintManagerrintToDevice(doc, "A2-FIT", pm, printerName, this.log);
                         break;
                     default:
-                        int i = int.Parse(sheet.PageSize.Substring(1, 1), CultureInfo.InvariantCulture);
-                        string printerNameTmp = i > 2 ? "this.PrinterNameA3" : this.PrinterNameLargeFormat;
-                        printSetttingsValid |= PrintSettings.PrintToDevice(doc, sheet.PageSize, pm, printerNameTmp, this.log);
+                        // int i = int.Parse(sheet.PageSize.Name(1, 1), CultureInfo.InvariantCulture);
+                        // string printerNameTmp = i > 2 ? "this.PrinterNameA3" : this.PrinterNameLargeFormat;
+                        // printSetttingsValid |= PrintSettings.PrintToDevice(doc, sheet.PageSize, pm, printerNameTmp, this.log);
                         break;
                     }
                     if (printSetttingsValid) {
@@ -403,8 +404,8 @@ namespace SCaddins.ExportManager
 
         public void Update()
         {
-            PrintManager pm = doc.PrintManager;
-            PrintSettings.SetPrinterByName(doc, this.PdfPrinterName, pm);
+            SCexportPrintManager pm = doc.PrintManager;
+            PrPrintManagertPrinterByName(doc, this.PdfPrinterName, pm);
 
             foreach (ExportSheet sc in this.allSheets) {
                 if (!sc.Verified) {
@@ -470,8 +471,8 @@ namespace SCaddins.ExportManager
         {
             DateTime startTime = DateTime.Now;
             TimeSpan elapsedTime = DateTime.Now - startTime;
-            PrintManager pm = doc.PrintManager;
-            PrintSettings.SetPrinterByName(doc, this.PdfPrinterName, pm);
+            SCexportPrintManager pm = doc.PrintManager;
+            PriPrintManagerPrinterByName(doc, this.PdfPrinterName, pm);
             this.log.Clear();
             this.log.TotalExports = progressBar.Maximum;
             this.log.Start("Export Started");
@@ -933,7 +934,7 @@ namespace SCaddins.ExportManager
                 ExportManager.RemoveTitleBlock(vs, titleBlockHidden, true);
             }
 
-            PrintManager pm = doc.PrintManager;
+            SCexportPrintManager pm = doc.PrintManager;
 
             var t = new Transaction(doc, "Apply print settings");
             t.Start();
@@ -971,6 +972,20 @@ namespace SCaddins.ExportManager
                 ExportManager.RemoveTitleBlock(vs, titleBlockHidden, false);
             }
         }
+        
+        private string CreateGSPrintArgs(ExportSheet vs)
+        {
+            if(string.IsNullOrEmpty(vs.PageSize.GhostScriptName)) {
+                return string.Empty;
+            } else {
+                return "-sPAPERSIZE#" +
+                    vs.PageSize.GhostScriptName + " \"" +
+                    vs.FullExportPath(".ps") +
+                    "\" \"" +
+                    vs.FullExportPath(".pdf") +
+                    "\"";
+            }
+        }
 
         [SecurityCritical]
         private bool ExportGSPDF(ExportSheet vs)
@@ -978,11 +993,11 @@ namespace SCaddins.ExportManager
             this.log.AddMessage(Environment.NewLine + "### Starting Ghostscipt PDF Export ###");
             this.log.AddMessage(vs.ToString());
             
-            PrintManager pm = doc.PrintManager;
+            SCexportPrintManager pm = doc.PrintManager;
             
             this.log.AddMessage("Applying print setting: " + vs.PrintSettingName);
 
-            if (!PrintSettings.PrintToFile(doc, vs, pm, ".ps", this.PostscriptPrinterName)) {
+            if (!PrinPrintManagertToFile(doc, vs, pm, ".ps", this.PostscriptPrinterName)) {
                 this.log.AddError(vs.FullExportName, "failed to assign print setting: " + vs.PrintSettingName);
                 return false;
             }
@@ -997,18 +1012,11 @@ namespace SCaddins.ExportManager
             }
             
             this.log.AddMessage("Printing: " + vs.FullExportPath(".ps"));
-
             FileUtilities.WaitForFileAccess(vs.FullExportPath(".ps"));
-            
             this.log.AddMessage("...OK");
             
             string prog = "\"" + this.GhostscriptLibDir  + @"\ps2pdf" + "\"";
-            string size = vs.PageSize.ToLower(CultureInfo.CurrentCulture);
-            string sizeFix = size.ToLower(CultureInfo.CurrentCulture).Replace("p", string.Empty);   
-            string args = 
-                "-sPAPERSIZE#" +
-                sizeFix + " \"" + vs.FullExportPath(".ps") +
-                "\" \"" + vs.FullExportPath(".pdf") + "\"";
+            string args = CreateGSPrintArgs(vs);
 
             if (FileUtilities.CanOverwriteFile(vs.FullExportPath(".pdf"))) {
                 this.log.AddMessage("Converting to PDF with: " + prog + " " + args);
@@ -1040,11 +1048,11 @@ namespace SCaddins.ExportManager
         [SecurityCritical]
         private bool ExportAdobePDF(ExportSheet vs)
         {
-            PrintManager pm = doc.PrintManager;
+            SCexportPrintManager pm = doc.PrintManager;
             
             this.log.AddMessage("Applying print setting: " + vs.PrintSettingName);
 
-            if (!PrintSettings.PrintToFile(doc, vs, pm, ".pdf", this.PdfPrinterName)) {
+            if (!PrintPrintManagerToFile(doc, vs, pm, ".pdf", this.PdfPrinterName)) {
                 this.log.AddError(vs.FullExportName, "failed to assign print setting: " + vs.PrintSettingName);
                 return false;
             }

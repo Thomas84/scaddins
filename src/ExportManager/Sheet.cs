@@ -1,4 +1,4 @@
-// (C) Copyright 2012-2016 by Andrew Nicholas
+// (C) Copyright 2012-2017 by Andrew Nicholas
 //
 // This file is part of SCaddins.
 //
@@ -28,7 +28,6 @@ namespace SCaddins.ExportManager
         private DateTime sheetRevisionDateTime;
         private Document doc;
         private ElementId id;
-        private PrintSetting printSetting;
         private SegmentedSheetName segmentedFileName;
         private ViewSheet sheet;
         private bool forceDate;
@@ -37,7 +36,7 @@ namespace SCaddins.ExportManager
         private double height;
         private double width;
         private string fullExportName;
-        private string pageSize;
+        private SCaddins.ExportManager.SCexportPrintSetting printSetting;
         private string projectNumber;
         private string scale;
         private string scaleBarScale;
@@ -56,7 +55,7 @@ namespace SCaddins.ExportManager
             this.Init(sheet, doc, fileNameTemplate, scx);
         }
 
-        public string PageSize
+        public PaperSize PageSize
         {
             get { return this.pageSize; }
         }
@@ -70,7 +69,7 @@ namespace SCaddins.ExportManager
         {
             get
             {
-                return this.printSetting != null ? this.printSetting.Name : string.Empty;
+                return this.printSetting.Name != null ? this.printSetting.Name : string.Empty;
             }
         }
 
@@ -198,7 +197,7 @@ namespace SCaddins.ExportManager
             get { return this.height * 304.8; }
         }
 
-        public PrintSetting SCPrintSetting
+        public SCexportPrintSetting SCPrintSetting
         {
             get { return this.printSetting; }
         }
@@ -234,7 +233,6 @@ namespace SCaddins.ExportManager
                     return 2;
             }    
         }
-
         
         public static string GetScaleBarScale(Element titleBlock)
         {
@@ -255,11 +253,6 @@ namespace SCaddins.ExportManager
             return this.ExportDir + "\\" + this.fullExportName + extension;
         }
 
-        /// <summary>
-        /// Updates some of the sheet info(scale, pagesize).
-        /// This could be done at startup, but in some cases
-        /// it can take a while.
-        /// </summary>
         public void UpdateSheetInfo()
         {
             var titleBlock = ExportManager.TitleBlockInstanceFromSheetNumber(
@@ -274,9 +267,8 @@ namespace SCaddins.ExportManager
                 this.height = titleBlock.get_Parameter(
                         BuiltInParameter.SHEET_HEIGHT).AsDouble();
             }
-            this.pageSize = PrintSettings.GetSheetSizeAsString(this);
-            this.printSetting = PrintSettings.GetPrintSettingByName(
-                    this.doc, this.pageSize);
+            var pageSize = new SCaddins.ExportManager.PaperSize(this.width, this.height);
+            this.printSetting = SCexportPrintManager.GetRevitPrintSetting(this.doc, this.pageSize.Name);
             this.verified = true;
         }
         
@@ -401,7 +393,7 @@ namespace SCaddins.ExportManager
                 this.height,
                 this.width,
                 this.fullExportName,
-                this.pageSize,
+                this.printSetting.PaperSize.ToString(),
                 this.projectNumber,
                 this.scale,
                 this.scaleBarScale,
@@ -424,18 +416,16 @@ namespace SCaddins.ExportManager
             this.segmentedFileName = sheetName;
             this.verified = false;
             this.ExportDir = scx.ExportDir;
-            this.sheetNumber = viewSheet.get_Parameter(
-                    BuiltInParameter.SHEET_NUMBER).AsString();
-            this.sheetDescription = viewSheet.get_Parameter(
-                    BuiltInParameter.SHEET_NAME).AsString();
+            this.sheetNumber = viewSheet.get_Parameter(BuiltInParameter.SHEET_NUMBER).AsString();
+            this.sheetDescription = viewSheet.get_Parameter(BuiltInParameter.SHEET_NAME).AsString();
             this.projectNumber = document.ProjectInformation.Number;
             this.width = 841;
             this.height = 594;
-            // this.scaleValue = 
             this.scale = string.Empty;
             this.scaleBarScale = string.Empty;
             this.northPointVisible = 2;
-            this.pageSize = string.Empty;
+            var paperSize = new PaperSize(this.width, this.height);
+            this.printSetting = new SCexportPrintSetting(paperSize);
             this.id = viewSheet.Id;
             this.UpdateRevision(false);
             this.SetExportName();

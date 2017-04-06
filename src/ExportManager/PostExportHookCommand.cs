@@ -49,7 +49,7 @@ namespace SCaddins.ExportManager
             result = result.Replace(@"$fullExportName", sheet.FullExportName);
             result = result.Replace(@"$fullExportPath", sheet.FullExportPath(extension));
             result = result.Replace(@"$exportDir", sheet.ExportDir);
-            result = result.Replace(@"$pageSize", sheet.PageSize);
+            result = result.Replace(@"$pageSize", sheet.PageSize.Name);
             result = result.Replace(@"$projectNumber", sheet.ProjectNumber);
             result = result.Replace(@"$sheetDescription", sheet.SheetDescription);
             result = result.Replace(@"$sheetNumber", sheet.SheetNumber);

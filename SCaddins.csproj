@@ -178,12 +178,14 @@
       <DependentUpon>UpgradeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Common\ConsoleUtils.cs" />
+    <Compile Include="src\ExportManager\PaperSize.cs" />
     <Compile Include="src\ExportManager\PaperSizeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\ExportManager\PaperSizeDialog.Designer.cs">
       <DependentUpon>PaperSizeDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\ExportManager\PrintSetting.cs" />
     <Compile Include="src\ParameterUtilities\EditTextParameters.cs" />
     <Compile Include="src\ParameterUtilities\TextCaseEnums.cs" />
     <Compile Include="src\ParameterUtilities\ChangeCaseInfoDialog.cs">
@@ -295,7 +297,7 @@
     </Compile>
     <Compile Include="src\ExportManager\PostExportHookCommand.cs" />
     <Compile Include="src\ExportManager\PreviousSheet.cs" />
-    <Compile Include="src\ExportManager\PrintSettings.cs" />
+    <Compile Include="src\ExportManager\PrintManager.cs" />
     <Compile Include="src\ExportManager\RenameSheetForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -23,74 +23,30 @@ namespace SCaddins.ExportManager
     using Autodesk.Revit.DB;
     using Autodesk.Revit.UI;
 
-    public static class PrintSettings
+    public static class SCexportPrintManager
     {  
-        /// <summary>
-        /// Return the sheet name by matching the Title Block size to defined print settings.
-        /// </summary>
-        /// <param name="sheet"></param>
-        /// <returns> The Sheet Name (A0,A1...etc)</returns>
-        public static string GetSheetSizeAsString(ExportSheet sheet)
-        {
-            var sheetSizeList = SCaddins.ExportManager.Settings1.Default.PaperSizes;
-            foreach (string s in sheetSizeList) {
-                string pattern = @"(^.*)\((.*)x(.*)([a-z][a-z])\)";
-                var match = Regex.Match(s, pattern);
-                var size = match.Groups[1].Value;
-                var width = match.Groups[2].Value;
-                var height = match.Groups[3].Value;
-                var units = match.Groups[4].Value;
-                System.Diagnostics.Debug.WriteLine("Size {0:G}: Width {1:G}: Height {2:G}: Units {3:G}", size, width, height, units);
-                double w = 0;
-                double h = 0;
-                if (double.TryParse(width, out w) && double.TryParse(height, out h)) {
-                    if (units == "in") {
-                        // TODO need some better techniques than this....
-                        w = w * 25.4;
-                        h = h * 25.4;
-                    }
-                    // landscape first
-                    if (CheckSheetSize(sheet.Width, sheet.Height, h, w)){
-                        return size.Trim();
-                    }
-                    // portrait is appended with "-Portrait"
-                    if (CheckSheetSize(sheet.Width, sheet.Height, w, h)) {
-                        return size.Trim() + "-Portrait";
-                    }
-                }              
-            }
-            return Math.Round(sheet.Width).ToString(CultureInfo.InvariantCulture) + "x" +
-               Math.Round(sheet.Height).ToString(CultureInfo.InvariantCulture);
-        }
-
-        public static bool CreatePrintSetting(Document doc, string sheetSize) {
-            PrintManager pm = doc.PrintManager;
+        public static bool CreatePrintSetting(Document doc, SCexportPrintSetting printSetting) {
+            Autodesk.Revit.DB.PrintManager pm = doc.PrintManager;
             bool success = false;
-            var niceName = sheetSize;
-            if (sheetSize.Contains("-")) {
-                niceName = sheetSize.Substring(0, sheetSize.IndexOf("-"));
-            }
-            foreach (PaperSize paperSize in pm.PaperSizes) {
-                // FIXME check for portrait mode here!
-                if (paperSize.Name == niceName) {
+
+            foreach (Autodesk.Revit.DB.PaperSize autodeskPaperSize in pm.PaperSizes) {
+                if (string.Equals(autodeskPaperSize.Name, printSetting.PaperSize.Name, StringComparison.InvariantCultureIgnoreCase)) {
                     var t = new Transaction(doc, "Apply print settings");
                     t.Start();
                     var ips = pm.PrintSetup.CurrentPrintSetting;
                     try {
-                        ips.PrintParameters.PaperSize = paperSize;
+                        ips.PrintParameters.PaperSize = autodeskPaperSize;
                         ips.PrintParameters.HideCropBoundaries = true;
-                        if (sheetSize.Contains("Portrait") && !sheetSize.Contains("FIT")) {
-                            ips.PrintParameters.PageOrientation =
-                            PageOrientationType.Portrait;
+                        if (paperSize.IsPortrait) {
+                            ips.PrintParameters.PageOrientation = PageOrientationType.Portrait;
                         } else {
-                            ips.PrintParameters.PageOrientation =
-                            PageOrientationType.Landscape;
+                            ips.PrintParameters.PageOrientation = PageOrientationType.Landscape;
                         }
-
                         ips.PrintParameters.HideScopeBoxes = true;
                         ips.PrintParameters.HideReforWorkPlanes = true;
                         ips.PrintParameters.HideUnreferencedViewTags = true;
-                        if (sheetSize.Contains("FIT")) {
+                        
+                        if (printSetting.RevitPrintSetting.Name.Contains("FIT")) {
                             ips.PrintParameters.ZoomType = ZoomType.FitToPage;
                             ips.PrintParameters.PaperPlacement = PaperPlacementType.Margins;
                             ips.PrintParameters.MarginType = MarginType.UserDefined;
@@ -105,14 +61,14 @@ namespace SCaddins.ExportManager
                             ips.PrintParameters.UserDefinedMarginY = 0;
                         }
 
-                        pm.PrintSetup.SaveAs("SCX-" + sheetSize);
+                        pm.PrintSetup.SaveAs("SCX-" + autodeskPaperSize.Name);
                         t.Commit();
                         success = true;
                     } catch (InvalidOperationException ex) {
                         System.Diagnostics.Debug.Print(ex.Message);
                         TaskDialog.Show(
                             "SCexport",
-                            "Unable to create print setting: " + "SCX-" + sheetSize);
+                            "Unable to create print setting: " + "SCX-" + autodeskPaperSize.Name);
                         t.RollBack();
                     }
                 }
@@ -123,11 +79,11 @@ namespace SCaddins.ExportManager
         public static bool PrintToDevice(
                 Document doc,
                 string size,
-                PrintManager pm,
+                SCexportPrintManager pm,
                 string printerName,
                 ExportLog log)
         {
-            PrintSetting ps = LoadRevitPrintSetting(doc, size, pm, printerName, log);
+            SCexportPrintSetting ps = LoadRevitPrintSetting(doc, size, pm, printerName, log);
             
             if (ps == null) {
                 return false;
@@ -159,7 +115,7 @@ namespace SCaddins.ExportManager
         public static bool PrintToFile(
                 Document doc,
                 ExportSheet vs,
-                PrintManager pm,
+                SCexportPrintManager pm,
                 string ext,
                 string printerName)
         {
@@ -168,7 +124,7 @@ namespace SCaddins.ExportManager
                 return false;
             }
 
-            if (!PrintSettings.SetPrinterByName(doc, printerName, pm)) {
+            if (!SCexportPrintManager.SetPrinterByName(doc, printerName, pm)) {
                 return false;
             }
 
@@ -189,11 +145,11 @@ namespace SCaddins.ExportManager
             }
         }
 
-        public static PrintSetting GetPrintSettingByName(Document doc, string printSetting)
+        public static Autodesk.Revit.DB.PrintSetting GetRevitPrintSetting(Document doc, SCexportPrintSetting printSetting)
         {
             foreach (ElementId id in doc.GetPrintSettingIds()) {
-                var ps2 = doc.GetElement(id) as PrintSetting;
-                if (ps2.Name.ToString().Equals("SCX-" + printSetting)) {
+                var ps2 = doc.GetElement(id) as Autodesk.Revit.DB.PrintSetting;
+                if (ps2.Name.ToString().Equals(printSetting.RevitPrintSettingName)) {
                     return ps2;
                 }
             }
@@ -203,8 +159,8 @@ namespace SCaddins.ExportManager
             }
 
             foreach (ElementId id in doc.GetPrintSettingIds()) {
-                var ps2 = doc.GetElement(id) as PrintSetting;
-                if (ps2 != null && ps2.Name.ToString().Equals("SCX-" + printSetting)) {
+                var ps2 = doc.GetElement(id) as SCexportPrintSetting;
+                if (ps2 != null && ps2.Name.ToString().Equals("SCX-" + paperSize.Name)) {
                     return ps2;
                 }
             }
@@ -215,7 +171,7 @@ namespace SCaddins.ExportManager
         }
 
         public static bool SetPrinterByName(
-                Document doc, string name, PrintManager pm)
+                Document doc, string name, SCexportPrintManager pm)
         {
             if (string.IsNullOrEmpty(name)) {
                 return false;
@@ -234,15 +190,15 @@ namespace SCaddins.ExportManager
             }
         }
 
-        private static PrintSetting LoadRevitPrintSetting(
+        private static SCexportPrintSetting LoadRevitPrintSetting(
                 Document doc,
                 string size,
-                PrintManager pm,
+                SCexportPrintManager pm,
                 string printerName,
                 ExportLog log)
         {       
             log.AddMessage("Attempting to Load Revit Print Settings:" + size);
-            PrintSetting ps = PrintSettings.GetPrintSettingByName(doc, size);
+            SCexportPrintSetting ps = SCexportPrintManager.GetRevitPrintSetting(doc, size);
 
             if (ps == null) {
                 log.AddError(null, "Retrieving Revit Print Settings FAILED");
@@ -250,11 +206,10 @@ namespace SCaddins.ExportManager
             }
             
             log.AddMessage("Using printer : " + printerName);
-            if (!PrintSettings.SetPrinterByName(doc, printerName, pm)) {
+            if (!SCexportPrintManager.SetPrinterByName(doc, printerName, pm)) {
                 log.AddError(null, "Cannot set printer: " + printerName);
                 return null;
             } 
-            
             return ps;
         }
         

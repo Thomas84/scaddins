@@ -166,38 +166,34 @@ namespace SCaddins.ExportManager {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>A0 (841x1189mm)</string>
-  <string>A1 (594x841mm)</string>
-  <string>A2 (420x594mm)</string>
-  <string>A3 (297x420mm)</string>
-  <string>ISO B1 (707x1000mm)</string>
-  <string>ISO B2 (500x707mm)</string>
-  <string>ISO B3 (353x500mm)</string>
-  <string>ISO B4 (250x353mm)</string>
-  <string>B1 (728x1030mm)</string>
-  <string>B2 (515x728mm)</string>
-  <string>B3 (364x515mm)</string>
-  <string>B4 ( 257x364mm)</string>
-  <string>ANSI A (8.5x11in)</string>
-  <string>ANSI B (11x17in)</string>
-  <string>ANSI C (17x22in)</string>
-  <string>ANSI D (22x34in)</string>
-  <string>ANSI E (34x44)</string>
-  <string>Arch A (9x12in)</string>
-  <string>Arch B (12x18in)</string>
-  <string>Arch C (18x24in)</string>
-  <string>Arch D (24x36in)</string>
-  <string>Arch E (36x48in)</string>
-  <string>Arch E1 (30x42in)</string>
-  <string>Arch E2 (26x38in)</string>
-  <string>Arch E3 (27x39in)</string>
-  <string>Arch30 B (10.5x15in)</string>
-  <string>Arch30 C (15x21in)</string>
-  <string>Arch30 D (21x30in)</string>
-  <string>Arch30 E (30x42in)</string>
-</ArrayOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>a0\t\t(\t841\tx 1189\tmm\t)</string>\r\n  <string>a1\t\t(\t594\tx 841\tmm\t)</string>\r\n " +
+            " <string>a2\t\t(\t420\tx 594\tmm\t)</string>\r\n  <string>a3\t\t(\t297\tx 420\tmm\t)</string>\r" +
+            "\n  <string>a4\t\t(\t210\tx 297\tmm\t)</string>\r\n  <string>a4 small\t(\t210\tx 297\tmm\t)</s" +
+            "tring>\r\n  <string>a5\t\t(\t148\tx 210\tmm\t)</string>\r\n  <string>a6\t\t(\t105\tx 148\tmm\t)<" +
+            "/string>\r\n  <string>a7\t\t(\t74\tx 105\tmm\t)</string>\r\n  <string>a8\t\t(\t52\tx 74\tmm\t)</" +
+            "string>\r\n  <string>a9\t\t(\t37\tx 52\tmm\t)</string>\r\n  <string>a10\t\t(\t26\tx 37\tmm\t)</s" +
+            "tring>\r\n  <string>iso b0\t\t(\t1000\tx 1414\tmm\t)</string>\r\n  <string>iso b1\t\t(\t707\tx" +
+            " 1000\tmm\t)</string>\r\n  <string>iso b2\t\t(\t500\tx 707\tmm\t)</string>\r\n  <string>iso " +
+            "b3\t\t(\t353\tx 500\tmm\t)</string>\r\n  <string>iso b4\t\t(\t250\tx 353\tmm\t)</string>\r\n  <s" +
+            "tring>iso b5\t\t(\t176\tx 250\tmm\t)</string>\r\n  <string>iso b6\t\t(\t125\tx 176\tmm\t)</str" +
+            "ing>\r\n  <string>c0\t\t(\t917\tx 1297\tmm\t)</string>\r\n  <string>c1\t\t(\t648\tx 917\tmm\t)</" +
+            "string>\r\n  <string>c2\t\t(\t458\tx 648\tmm\t)</string>\r\n  <string>c3\t\t(\t324\tx 458\tmm\t)" +
+            "</string>\r\n  <string>c4\t\t(\t229\tx 324\tmm\t)</string>\r\n  <string>c5\t\t(\t162\tx 229\tmm" +
+            "\t)</string>\r\n  <string>c6\t\t(\t114\tx 162\tmm\t)</string>\r\n  <string>jis b0\t\t(\t1030\tx" +
+            " 1456\tmm\t)</string>\r\n  <string>jis b1\t\t(\t728\tx 1030\tmm\t)</string>\r\n  <string>jis" +
+            " b2\t\t(\t515\tx 728\tmm\t)</string>\r\n  <string>jis b3\t\t(\t364\tx 515\tmm\t)</string>\r\n  <" +
+            "string>jis b4\t\t(\t257\tx 364\tmm\t)</string>\r\n  <string>jis b5\t\t(\t182\tx 257\tmm\t)</st" +
+            "ring>\r\n  <string>jis b6\t\t(\t128\tx 182\tmm\t)</string>\r\n  <string>11x17\t  \t(\t279\tx 4" +
+            "32\tmm\t)</string>\r\n  <string>ledger\t\t(\t432\tx 279\tmm\t)</string>\r\n  <string>legal\t\t" +
+            "(\t216\tx 356\tmm\t)</string>\r\n  <string>letter\t\t(\t216\tx 279\tmm\t)</string>\r\n  <strin" +
+            "g>letter small\t(\t216\tx 279\tmm\t)</string>\r\n  <string>arch E\t\t(\t914\tx 1219\tmm\t)</s" +
+            "tring>\r\n  <string>arch D\t\t(\t610\tx 914\tmm\t)</string>\r\n  <string>arch C\t\t(\t457\tx 6" +
+            "10\tmm\t)</string>\r\n  <string>arch B\t\t(\t305\tx 457\tmm\t)</string>\r\n  <string>arch A\t" +
+            "\t(\t229\tx 305\tmm\t)</string>\r\n  <string>ANSI A (8.5x11in)</string>\r\n  <string>ANSI" +
+            " B (11x17in)</string>\r\n  <string>ANSI C (17x22in)</string>\r\n  <string>ANSI D (22" +
+            "x34in)</string>\r\n  <string>ANSI E (34x44)</string>\r\n</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection PaperSizes {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["PaperSizes"]));
