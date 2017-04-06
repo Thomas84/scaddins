@@ -30,6 +30,7 @@ namespace SCaddins.ExportManager
     using Autodesk.Revit.DB;
     using Autodesk.Revit.UI;
     using SCaddins.Common;
+    using Ghostscript.NET.Processor;
 
     public class ExportManager
     {
@@ -966,6 +967,18 @@ namespace SCaddins.ExportManager
                 this.log.AddMessage("Showing Title Block");
                 ExportManager.RemoveTitleBlock(vs, titleBlockHidden, false);
             }
+        }
+        
+        private bool GSTest()
+        {
+           GhostscriptVersionInfo gv = GhostscriptVersionInfo.GetLastInstalledVersion (
+                GhostscriptLicense.GPL | GhostscriptLicense.AFPL, GhostscriptLicense.GPL);
+            
+            using (GhostscriptProcessor processor = new GhostscriptProcessor(gv, true))
+            {
+            }
+            GGhostscriptProcessor processer = new Ghostscript.NET.Processor.GhostscriptProcessor(;
+            processer.
         }
 
         [SecurityCritical]
