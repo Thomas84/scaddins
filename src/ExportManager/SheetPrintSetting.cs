@@ -20,14 +20,14 @@ namespace SCaddins.ExportManager
 {
     using System;
 
-    public class SCexportPrintSetting
+    public class SheetPrintSetting
     {
         public Autodesk.Revit.DB.PrintSetting RevitPrintSetting
         {
             get; set;
         }
         
-        public PaperSize PaperSize
+        public SheetPaperSize PaperSize
         {
             get;
             set;
@@ -46,7 +46,7 @@ namespace SCaddins.ExportManager
             }
         }
         
-        public SCexportPrintSetting(PaperSize paperSize)
+        public SheetPrintSetting(SheetPaperSize paperSize)
         {
             FitToPage = false;
             PaperSize = paperSize;

@@ -30,13 +30,13 @@ namespace SCaddins.ExportManager
         private ElementId id;
         private SegmentedSheetName segmentedFileName;
         private ViewSheet sheet;
+        private SheetPrintSetting printSetting;
         private bool forceDate;
         private bool verified;
         private int northPointVisible;
         private double height;
         private double width;
         private string fullExportName;
-        private SCaddins.ExportManager.SCexportPrintSetting printSetting;
         private string projectNumber;
         private string scale;
         private string scaleBarScale;
@@ -55,7 +55,7 @@ namespace SCaddins.ExportManager
             this.Init(sheet, doc, fileNameTemplate, scx);
         }
 
-        public PaperSize PageSize
+        public SheetPaperSize PageSize
         {
             get { return this.pageSize; }
         }
@@ -63,14 +63,6 @@ namespace SCaddins.ExportManager
         public string ProjectNumber
         {
             get { return this.projectNumber; }
-        }
-
-        public string PrintSettingName
-        {
-            get
-            {
-                return this.printSetting.Name != null ? this.printSetting.Name : string.Empty;
-            }
         }
 
         public SegmentedSheetName SegmentedFileName {
@@ -197,7 +189,7 @@ namespace SCaddins.ExportManager
             get { return this.height * 304.8; }
         }
 
-        public SCexportPrintSetting SCPrintSetting
+        public SheetPrintSetting SheetPrintSetting
         {
             get { return this.printSetting; }
         }
@@ -267,8 +259,8 @@ namespace SCaddins.ExportManager
                 this.height = titleBlock.get_Parameter(
                         BuiltInParameter.SHEET_HEIGHT).AsDouble();
             }
-            var pageSize = new SCaddins.ExportManager.PaperSize(this.width, this.height);
-            this.printSetting = SCexportPrintManager.GetRevitPrintSetting(this.doc, this.pageSize.Name);
+            var pageSize = new SCaddins.ExportManager.SheetPaperSize(this.width, this.height);
+            this.printSetting = PrintSettingsManager.GetRevitPrintSetting(this.doc, );
             this.verified = true;
         }
         
@@ -424,8 +416,8 @@ namespace SCaddins.ExportManager
             this.scale = string.Empty;
             this.scaleBarScale = string.Empty;
             this.northPointVisible = 2;
-            var paperSize = new PaperSize(this.width, this.height);
-            this.printSetting = new SCexportPrintSetting(paperSize);
+            var paperSize = new SheetPaperSize(this.width, this.height);
+            this.printSetting = new SheetPrintSetting(paperSize);
             this.id = viewSheet.Id;
             this.UpdateRevision(false);
             this.SetExportName();
