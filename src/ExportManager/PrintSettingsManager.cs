@@ -23,19 +23,19 @@ namespace SCaddins.ExportManager
 
     public static class PrintSettingsManager
     {  
-        public static bool CreatePrintSetting(Document doc, string revitPrintSettingName) {
+        public static bool CreatePrintSetting(Document doc, SheetPrintSetting sheetPrintSetting) {
             Autodesk.Revit.DB.PrintManager pm = doc.PrintManager;
             bool success = false;
 
             foreach (Autodesk.Revit.DB.PaperSize autodeskPaperSize in pm.PaperSizes) {
-                if (string.Equals(autodeskPaperSize.Name, revitPrintSettingName, StringComparison.InvariantCultureIgnoreCase)) {
+                if (string.Equals(autodeskPaperSize.Name, sheetPrintSetting.PaperSize.Name, StringComparison.InvariantCultureIgnoreCase)) {
                     var t = new Transaction(doc, "Apply print settings");
                     t.Start();
                     var ips = pm.PrintSetup.CurrentPrintSetting;
                     try {
                         ips.PrintParameters.PaperSize = autodeskPaperSize;
                         ips.PrintParameters.HideCropBoundaries = true;
-                        if (revitPrintSettingName.PaperSize.IsPortrait) {
+                        if (sheetPrintSetting.PaperSize.IsPortrait) {
                             ips.PrintParameters.PageOrientation = PageOrientationType.Portrait;
                         } else {
                             ips.PrintParameters.PageOrientation = PageOrientationType.Landscape;
@@ -44,7 +44,7 @@ namespace SCaddins.ExportManager
                         ips.PrintParameters.HideReforWorkPlanes = true;
                         ips.PrintParameters.HideUnreferencedViewTags = true;
                         
-                        if (revitPrintSettingName..Contains("FIT")) {
+                        if (sheetPrintSetting.FitToPage) {
                             ips.PrintParameters.ZoomType = ZoomType.FitToPage;
                             ips.PrintParameters.PaperPlacement = PaperPlacementType.Margins;
                             ips.PrintParameters.MarginType = MarginType.UserDefined;
@@ -76,12 +76,15 @@ namespace SCaddins.ExportManager
 
         public static bool AssignPrintMangerSettings(
                 Document doc,
-                string size,
                 PrintManager pm,
-                string printerName,
+                SheetPrintSetting printSetting,
                 ExportLog log)
         {
-            PrintSetting ps = LoadRevitPrintSetting(doc, size, pm, printerName, log);
+            PrintSetting ps = LoadRevitPrintSetting(doc,
+                                                    printSetting.Size,
+                                                    pm,
+                                                    printSetting.PrinterName,
+                                                    log);
             
             if (ps == null) {
                 return false;
@@ -117,7 +120,7 @@ namespace SCaddins.ExportManager
                 string ext,
                 string printerName)
         {
-            if (vs.SCPrintSetting == null) {
+            if (vs. == null) {
                 vs.UpdateSheetInfo();
                 return false;
             }
@@ -129,7 +132,7 @@ namespace SCaddins.ExportManager
             var t = new Transaction(doc, "Print Pdf");
             t.Start();
             try {
-                pm.PrintSetup.CurrentPrintSetting = vs.;
+                pm.PrintSetup.CurrentPrintSetting = vs.SheetPrintSetting.RevitPrintSetting;
                 pm.PrintRange = PrintRange.Current;
                 pm.PrintToFile = true;
                 pm.PrintToFileName = vs.FullExportPath(ext);
@@ -190,33 +193,24 @@ namespace SCaddins.ExportManager
 
         private static PrintSetting LoadRevitPrintSetting(
                 Document doc,
-                string size,
                 PrintManager pm,
-                string printerName,
+                SheetPrintSetting sheetPrintSetting,
                 ExportLog log)
         {       
             log.AddMessage("Attempting to Load Revit Print Settings:" + size);
-            PrintSetting ps = PrintSettingsManager.GetRevitPrintSetting(doc, size);
+            PrintSetting ps = PrintSettingsManager.GetRevitPrintSetting(doc, sheetPrintSetting.RevitPrintSetting.Name);
 
             if (ps == null) {
                 log.AddError(null, "Retrieving Revit Print Settings FAILED");
                 return null;
             }
             
-            log.AddMessage("Using printer : " + printerName);
-            if (!PrintSettingsManager.SetPrinterByName(doc, printerName, pm)) {
-                log.AddError(null, "Cannot set printer: " + printerName);
+            log.AddMessage("Using printer : " + sheetPrintSetting.PrinterName);
+            if (!PrintSettingsManager.SetPrinterByName(doc, sheetPrintSetting.PrinterName, pm)) {
+                log.AddError(null, "Cannot set printer: " + sheetPrintSetting.PrinterName);
                 return null;
             } 
             return ps;
-        }
-        
-        private static bool CheckSheetSize(
-            double width, double height, double tw, double th)
-        {
-            double w = Math.Round(width);
-            double h = Math.Round(height);
-            return tw + 2 > w && tw - 2 < w && th + 2 > h && th - 2 < h;
         }
     }
 }

@@ -33,23 +33,29 @@ namespace SCaddins.ExportManager
             set;
         }
         
+        public string PrinterName
+        {
+            get;
+            set;
+        }
+        
         public bool FitToPage
         {
             get;
             set;
         }
         
-        public string Name
+        public bool FitToPagePaperSize
         {
-            get {
-                return FitToPage ? PaperSize.NameWithOrientation + @"-Fit" : PaperSize.NameWithOrientation;
-            }
+            get;
+            set;
         }
-        
+               
         public SheetPrintSetting(SheetPaperSize paperSize)
         {
             FitToPage = false;
             PaperSize = paperSize;
+            PrinterName = string.Empty;
         }
     }
     

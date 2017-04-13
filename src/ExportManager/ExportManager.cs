@@ -47,6 +47,8 @@ namespace SCaddins.ExportManager
         private bool forceDate;
         private string exportDir;
 
+        #region Properties
+        
         public ExportManager(Document doc)
         {
             ExportManager.doc = doc;
@@ -165,7 +167,11 @@ namespace SCaddins.ExportManager
         public bool ShowExportLog {
             get; set;
         }
+        
+        #endregion
 
+        #region Static Public Methods
+        
         public static FamilyInstance TitleBlockInstanceFromSheetNumber(
             string sheetNumber, Document doc)
         {
@@ -190,20 +196,9 @@ namespace SCaddins.ExportManager
             string s = GetConfigFileName(doc);
             return File.Exists(s) ? s : null;
         }
-        
-        public static string GetOldConfigFileName(Document doc)
-        {
-            string central = FileUtilities.GetCentralFileName(doc);
-            string s = Path.GetDirectoryName(central) + @"\" +
-                Path.GetFileNameWithoutExtension(central) + ".xml";
-            return s;
-        }
-        
+               
         public static string GetConfigFileName(Document doc)
-        {
-            // if (File.Exists(GetOldConfigFileName(doc))) {
-            //     TaskDialog.Show("Old config found");
-            // }            
+        {           
             #if DEBUG
             Debug.WriteLine("getting config file for " + doc.Title);
             string s = @"C:\Andrew\code\cs\scaddins\share\SCexport-example-conf.xml";
@@ -247,7 +242,7 @@ namespace SCaddins.ExportManager
             }
             t.Commit();
         }
-        
+          
         public static void ToggleNorthPoints(ICollection<ExportSheet> sheets)
         {
             var t = new Autodesk.Revit.DB.Transaction(doc);
@@ -258,6 +253,10 @@ namespace SCaddins.ExportManager
             t.Commit();
         }
 
+        /// <summary>
+        /// Assign revisions to selected sheets.
+        /// </summary>
+        /// <param name="sheets"></param>
         public static void AddRevisions(ICollection<ExportSheet> sheets)
         {
             var r = new RevisionSelectionDialog(doc);
@@ -343,6 +342,10 @@ namespace SCaddins.ExportManager
             return (s.Length > 1) ? s : string.Empty;
         }
 
+        #endregion
+        
+        #region Public Methods
+        
         public void Print(
             ICollection<ExportSheet> sheets,
             string printerName,
@@ -376,10 +379,11 @@ namespace SCaddins.ExportManager
 
                     switch (scale) {
                     case 3:
-                        printSetttingsValid |= PrintSettingsManager.AssignPrintMangerSettings(doc, "A3-FIT", pm, printerName, this.log);
+                        sheet.SheetPrintSetting.FitToPage = true;
+                        printSetttingsValid |= PrintSettingsManager.AssignPrintMangerSettings(doc, pm, sheet.SheetPrintSetting , this.log);
                         break;
                     case 2:
-                        printSetttingsValid |= PrintSettingsManager.AssignPrintMangerSettings(doc, "A2-FIT", pm, printerName, this.log);
+                        printSetttingsValid |= PrintSettingsManager.AssignPrintMangerSettings(doc, pm, sheet.SheetPrintSetting , this.log);
                         break;
                     default:
                         // int i = int.Parse(sheet.PageSize.Name(1, 1), CultureInfo.InvariantCulture);
@@ -530,6 +534,10 @@ namespace SCaddins.ExportManager
             this.ShowExportLog = SCaddins.ExportManager.Settings1.Default.ShowExportLog;
         }
 
+        #endregion
+        
+        #region Private Static Methods
+        
         private static void OpenSheet(UIDocument udoc, ViewSheet view, int inc)
         {
             FilteredElementCollector a;
@@ -577,6 +585,7 @@ namespace SCaddins.ExportManager
             return result;
         }
 
+        //FIXME this can probably go.
         private static TaskDialogResult ShowPrintWarning()
         {
             var td = new TaskDialog("SCexport - Print Warning");
@@ -1082,6 +1091,7 @@ namespace SCaddins.ExportManager
             
             return true;
         }
+        #endregion    
     }
 }
 
