@@ -249,7 +249,11 @@ namespace SCaddins.RoomConvertor
                 SpatialElementGeometryCalculator calculator = new SpatialElementGeometryCalculator(doc);
                 SpatialElementGeometryResults results = calculator.CalculateSpatialElementGeometry(room);
                 Solid roomSolid = results.GetGeometry(); 
+                #if REVIT2018
+                DirectShape roomShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_Mass));
+                #else
                 DirectShape roomShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_Mass), "A", "B");
+                #endif
                 roomShape.SetShape(new GeometryObject[] { roomSolid });
                 CopyAllRoomParametersToMasses(room, roomShape);
 
@@ -275,17 +279,17 @@ namespace SCaddins.RoomConvertor
                 var loop = new CurveLoop();
                 var bdySegs = room.GetBoundarySegments(spatialBoundaryOptions);
                 foreach (var seg in bdySegs[0]) {
-                    #if REVIT2017 || REVIT2016
                     loop.Append(seg.GetCurve());
-                    #else
-                    loop.Append(seg.Curve);
-                    #endif
                 }
 
                 curves.Add(loop);
                 SolidOptions options = new SolidOptions(ElementId.InvalidElementId, ElementId.InvalidElementId);
                 Solid roomSolid = GeometryCreationUtilities.CreateExtrusionGeometry(curves, new XYZ(0, 0, 1), height.AsDouble(), options);
+                #if REVIT2018
+                DirectShape roomShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_Mass));
+                #else
                 DirectShape roomShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_Mass), "A", "B");
+                #endif
                 roomShape.SetShape(new GeometryObject[] { roomSolid });
                 CopyAllRoomParametersToMasses(room, roomShape);
 

@@ -290,14 +290,6 @@ namespace SCaddins.ExportManager
 
         public static ACADVersion AcadVersionFromString(string version)
         {
-            #if (!REVIT2016 && !REVIT2017)
-            if (version == "R2000") {
-                return ACADVersion.R2000;
-            }
-            if (version == "R2004") {
-                return ACADVersion.R2004;
-            }
-            #endif
             if (version == "R2007") {
                 return ACADVersion.R2007;
             }
@@ -310,12 +302,6 @@ namespace SCaddins.ExportManager
         public static string AcadVersionToString(ACADVersion version)
         {
             switch (version) {
-                #if (!REVIT2016 && !REVIT2017)
-                case ACADVersion.R2000:
-                    return "R2000";
-                case ACADVersion.R2004:
-                    return "R2004";
-                #endif
                 case ACADVersion.R2007:
                     return "R2007";
                 case ACADVersion.R2010:
