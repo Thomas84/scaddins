@@ -255,6 +255,7 @@
     <Compile Include="Scaddins.Designer.cs">
       <DependentUpon>Scaddins.settings</DependentUpon>
       <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SCaddinsOptions.cs" />
     <Compile Include="ScaddinsOptionsForm.cs">

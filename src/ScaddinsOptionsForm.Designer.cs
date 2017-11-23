@@ -27,6 +27,8 @@ namespace SCaddins
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ListBox listBox1;
         
         /// <summary>
         /// Disposes resources used by the form.
@@ -54,7 +56,15 @@ namespace SCaddins
             this.button2 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonUp = new System.Windows.Forms.Button();
+            this.buttonDown = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonReset = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -85,10 +95,62 @@ namespace SCaddins
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.buttonUp);
+            this.groupBox2.Controls.Add(this.buttonDown);
+            this.groupBox2.Controls.Add(this.buttonRemove);
+            this.groupBox2.Controls.Add(this.buttonReset);
+            this.groupBox2.Controls.Add(this.listBox1);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // buttonUp
+            // 
+            resources.ApplyResources(this.buttonUp, "buttonUp");
+            this.buttonUp.Name = "buttonUp";
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.ButtonUpClick);
+            // 
+            // buttonDown
+            // 
+            resources.ApplyResources(this.buttonDown, "buttonDown");
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.ButtonDownClick);
+            // 
+            // buttonRemove
+            // 
+            resources.ApplyResources(this.buttonRemove, "buttonRemove");
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.ButtonRemoveClick);
+            // 
+            // buttonReset
+            // 
+            resources.ApplyResources(this.buttonReset, "buttonReset");
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.ButtonResetClick);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            resources.ApplyResources(this.listBox1, "listBox1");
+            this.listBox1.Name = "listBox1";
+            // 
             // SCaddinsOptionsForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -96,8 +158,16 @@ namespace SCaddins
             this.Name = "SCaddinsOptionsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonUp;
+        private System.Windows.Forms.Button buttonDown;
+        private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Button buttonReset;
     }
 }

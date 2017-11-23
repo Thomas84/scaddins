@@ -1,10 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<SettingsFile CurrentProfile="(Default)" GeneratedClassNamespace="SCaddins" GeneratedClassName="Scaddins" xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SCaddins" GeneratedClassName="Scaddins">
+  <Profiles />
   <Settings>
-    <Setting Name="UpgradeCheckOnStartUp" Type="System.Boolean" Scope="User" Roaming="false">
+    <Setting Name="ApplicationLayout" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;SCexport_32&lt;/string&gt;
+  &lt;string&gt;PlaceCoordinate_16&lt;/string&gt;
+  &lt;string&gt;Rename_16&lt;/string&gt;
+  &lt;string&gt;DestructivePurge_16&lt;/string&gt;
+  &lt;string&gt;AngleOfSun_16&lt;/string&gt;
+  &lt;string&gt;CopySheets_16&lt;/string&gt;
+  &lt;string&gt;ScheduleClouds_16&lt;/string&gt;
+  &lt;string&gt;LineOfSight_16&lt;/string&gt;
+  &lt;string&gt;IncrementTool_16&lt;/string&gt;
+  &lt;string&gt;UserView_16&lt;/string&gt;
+  &lt;string&gt;RoomTools_16&lt;/string&gt;
+  &lt;string&gt;CreatePerspective_16&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="UpgradeCheckOnStartUp" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

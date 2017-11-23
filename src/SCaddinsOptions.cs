@@ -13,7 +13,7 @@
             ref string message,
             Autodesk.Revit.DB.ElementSet elements)
         {
-            using (var settingsForm = new SCaddinsOptionsForm()) {
+            using (var settingsForm = new SCaddinsOptionsForm(SCaddins.SCaddinsApp.ribbonPanel)) {
                 settingsForm.ShowDialog();
             }
             return Autodesk.Revit.UI.Result.Succeeded;

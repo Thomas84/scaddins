@@ -36,11 +36,26 @@ namespace SCaddins
     [Journaling(Autodesk.Revit.Attributes.JournalingMode.NoCommandData)]
     public class SCaddinsApp : Autodesk.Revit.UI.IExternalApplication
     {
-        private RibbonPanel ribbonPanel;
+        internal static RibbonPanel ribbonPanel;
         
         public static Version Version
         {
             get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version; }
+        }
+        
+        public static System.Collections.Specialized.StringCollection DefaultApplicationLayout
+        {
+            get
+            {
+                var result =  new System.Collections.Specialized.StringCollection();
+                String[] array = new String[] { "SCexport_32", 
+                    "PlaceCoordinate_16", "Rename_16", "DestructivePurge_16",
+                    "AngleOfSun_16", "CopySheets_16", "ScheduleClouds_16",
+                    "LinefFSight_16", "IncrementTool_16", "UserView_16",
+                    "RoomTools_16", "CreatePerspective_16"};
+                result.AddRange( array );
+                return result;
+            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]

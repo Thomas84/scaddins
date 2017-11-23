@@ -12,7 +12,7 @@ namespace SCaddins {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ICSharpCode.SettingsEditor.SettingsCodeGeneratorTool", "5.1.0.5216")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class Scaddins : global::System.Configuration.ApplicationSettingsBase {
         
         private static Scaddins defaultInstance = ((Scaddins)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Scaddins())));
@@ -20,6 +20,32 @@ namespace SCaddins {
         public static Scaddins Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>SCexport_32</string>
+  <string>PlaceCoordinate_16</string>
+  <string>Rename_16</string>
+  <string>DestructivePurge_16</string>
+  <string>AngleOfSun_16</string>
+  <string>CopySheets_16</string>
+  <string>ScheduleClouds_16</string>
+  <string>LineOfSight_16</string>
+  <string>IncrementTool_16</string>
+  <string>UserView_16</string>
+  <string>RoomTools_16</string>
+  <string>CreatePerspective_16</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection ApplicationLayout {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ApplicationLayout"]));
+            }
+            set {
+                this["ApplicationLayout"] = value;
             }
         }
         

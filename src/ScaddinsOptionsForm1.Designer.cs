@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SCaddins.src {
+namespace SCaddins {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SCaddins.src {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SCaddins.src.ScaddinsOptionsForm", typeof(ScaddinsOptionsForm).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SCaddins.ScaddinsOptionsForm", typeof(ScaddinsOptionsForm).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace SCaddins.src {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=241,Y=176}.
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=346,Y=365}.
         /// </summary>
         internal static System.Drawing.Point button1_Location {
             get {
@@ -100,7 +100,7 @@ namespace SCaddins.src {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=12,Y=176}.
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=12,Y=364}.
         /// </summary>
         internal static System.Drawing.Point button2_Location {
             get {
@@ -135,6 +135,192 @@ namespace SCaddins.src {
         internal static string button2_Text {
             get {
                 return ResourceManager.GetString("button2.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Windows.Forms.ImeMode similar to NoControl.
+        /// </summary>
+        internal static System.Windows.Forms.ImeMode buttonDown_ImeMode {
+            get {
+                object obj = ResourceManager.GetObject("buttonDown.ImeMode", resourceCulture);
+                return ((System.Windows.Forms.ImeMode)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=318,Y=148}.
+        /// </summary>
+        internal static System.Drawing.Point buttonDown_Location {
+            get {
+                object obj = ResourceManager.GetObject("buttonDown.Location", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=91, Height=23}.
+        /// </summary>
+        internal static System.Drawing.Size buttonDown_Size {
+            get {
+                object obj = ResourceManager.GetObject("buttonDown.Size", resourceCulture);
+                return ((System.Drawing.Size)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Int32 similar to 3.
+        /// </summary>
+        internal static int buttonDown_TabIndex {
+            get {
+                object obj = ResourceManager.GetObject("buttonDown.TabIndex", resourceCulture);
+                return ((int)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Down.
+        /// </summary>
+        internal static string buttonDown_Text {
+            get {
+                return ResourceManager.GetString("buttonDown.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Windows.Forms.ImeMode similar to NoControl.
+        /// </summary>
+        internal static System.Windows.Forms.ImeMode buttonRemove_ImeMode {
+            get {
+                object obj = ResourceManager.GetObject("buttonRemove.ImeMode", resourceCulture);
+                return ((System.Windows.Forms.ImeMode)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=318,Y=90}.
+        /// </summary>
+        internal static System.Drawing.Point buttonRemove_Location {
+            get {
+                object obj = ResourceManager.GetObject("buttonRemove.Location", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=91, Height=23}.
+        /// </summary>
+        internal static System.Drawing.Size buttonRemove_Size {
+            get {
+                object obj = ResourceManager.GetObject("buttonRemove.Size", resourceCulture);
+                return ((System.Drawing.Size)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Int32 similar to 2.
+        /// </summary>
+        internal static int buttonRemove_TabIndex {
+            get {
+                object obj = ResourceManager.GetObject("buttonRemove.TabIndex", resourceCulture);
+                return ((int)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Item.
+        /// </summary>
+        internal static string buttonRemove_Text {
+            get {
+                return ResourceManager.GetString("buttonRemove.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=318,Y=61}.
+        /// </summary>
+        internal static System.Drawing.Point buttonReset_Location {
+            get {
+                object obj = ResourceManager.GetObject("buttonReset.Location", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=91, Height=23}.
+        /// </summary>
+        internal static System.Drawing.Size buttonReset_Size {
+            get {
+                object obj = ResourceManager.GetObject("buttonReset.Size", resourceCulture);
+                return ((System.Drawing.Size)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Int32 similar to 1.
+        /// </summary>
+        internal static int buttonReset_TabIndex {
+            get {
+                object obj = ResourceManager.GetObject("buttonReset.TabIndex", resourceCulture);
+                return ((int)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset All.
+        /// </summary>
+        internal static string buttonReset_Text {
+            get {
+                return ResourceManager.GetString("buttonReset.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Windows.Forms.ImeMode similar to NoControl.
+        /// </summary>
+        internal static System.Windows.Forms.ImeMode buttonUp_ImeMode {
+            get {
+                object obj = ResourceManager.GetObject("buttonUp.ImeMode", resourceCulture);
+                return ((System.Windows.Forms.ImeMode)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=318,Y=119}.
+        /// </summary>
+        internal static System.Drawing.Point buttonUp_Location {
+            get {
+                object obj = ResourceManager.GetObject("buttonUp.Location", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=91, Height=23}.
+        /// </summary>
+        internal static System.Drawing.Size buttonUp_Size {
+            get {
+                object obj = ResourceManager.GetObject("buttonUp.Size", resourceCulture);
+                return ((System.Drawing.Size)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Int32 similar to 4.
+        /// </summary>
+        internal static int buttonUp_TabIndex {
+            get {
+                object obj = ResourceManager.GetObject("buttonUp.TabIndex", resourceCulture);
+                return ((int)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Up.
+        /// </summary>
+        internal static string buttonUp_Text {
+            get {
+                return ResourceManager.GetString("buttonUp.Text", resourceCulture);
             }
         }
         
@@ -188,7 +374,7 @@ namespace SCaddins.src {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=304, Height=158}.
+        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=415, Height=58}.
         /// </summary>
         internal static System.Drawing.Size groupBox1_Size {
             get {
@@ -213,6 +399,124 @@ namespace SCaddins.src {
         internal static string groupBox1_Text {
             get {
                 return ResourceManager.GetString("groupBox1.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=12,Y=76}.
+        /// </summary>
+        internal static System.Drawing.Point groupBox2_Location {
+            get {
+                object obj = ResourceManager.GetObject("groupBox2.Location", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=415, Height=282}.
+        /// </summary>
+        internal static System.Drawing.Size groupBox2_Size {
+            get {
+                object obj = ResourceManager.GetObject("groupBox2.Size", resourceCulture);
+                return ((System.Drawing.Size)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Int32 similar to 11.
+        /// </summary>
+        internal static int groupBox2_TabIndex {
+            get {
+                object obj = ResourceManager.GetObject("groupBox2.TabIndex", resourceCulture);
+                return ((int)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arrange / Remove application items.
+        /// </summary>
+        internal static string groupBox2_Text {
+            get {
+                return ResourceManager.GetString("groupBox2.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Boolean similar to True.
+        /// </summary>
+        internal static bool label1_AutoSize {
+            get {
+                object obj = ResourceManager.GetObject("label1.AutoSize", resourceCulture);
+                return ((bool)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=6,Y=27}.
+        /// </summary>
+        internal static System.Drawing.Point label1_Location {
+            get {
+                object obj = ResourceManager.GetObject("label1.Location", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=207, Height=13}.
+        /// </summary>
+        internal static System.Drawing.Size label1_Size {
+            get {
+                object obj = ResourceManager.GetObject("label1.Size", resourceCulture);
+                return ((System.Drawing.Size)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Int32 similar to 5.
+        /// </summary>
+        internal static int label1_TabIndex {
+            get {
+                object obj = ResourceManager.GetObject("label1.TabIndex", resourceCulture);
+                return ((int)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top most items will be displayed on the left.
+        /// </summary>
+        internal static string label1_Text {
+            get {
+                return ResourceManager.GetString("label1.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Point similar to {X=6,Y=61}.
+        /// </summary>
+        internal static System.Drawing.Point listBox1_Location {
+            get {
+                object obj = ResourceManager.GetObject("listBox1.Location", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Size similar to {Width=306, Height=199}.
+        /// </summary>
+        internal static System.Drawing.Size listBox1_Size {
+            get {
+                object obj = ResourceManager.GetObject("listBox1.Size", resourceCulture);
+                return ((System.Drawing.Size)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Int32 similar to 0.
+        /// </summary>
+        internal static int listBox1_TabIndex {
+            get {
+                object obj = ResourceManager.GetObject("listBox1.TabIndex", resourceCulture);
+                return ((int)(obj));
             }
         }
     }
