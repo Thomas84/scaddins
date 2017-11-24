@@ -36,6 +36,11 @@ namespace SCaddins
         private void ButtonOKClick(object sender, EventArgs e)
         {
             SCaddins.Scaddins.Default.UpgradeCheckOnStartUp = checkBox1.Checked;
+            StringCollection collection = new StringCollection();
+            foreach (var item in listBox1.Items) {
+                collection.Add(item.ToString());
+            }
+            SCaddins.Scaddins.Default.ApplicationLayout = collection;
             SCaddins.Scaddins.Default.Save();
         }
      
